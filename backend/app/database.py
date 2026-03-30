@@ -32,10 +32,12 @@ CREATE TABLE IF NOT EXISTS transactions (
 );
 """
 
+
 async def get_db():
     async with aiosqlite.connect(DB_PATH) as db:
         db.row_factory = aiosqlite.Row
         yield db
+
 
 async def init_db():
     async with aiosqlite.connect(DB_PATH) as db:
@@ -47,6 +49,6 @@ async def init_db():
         if count == 0:
             await db.execute(
                 "INSERT INTO wallets (name, type) VALUES (?, ?), (?, ?)",
-                ("Cash", "cash", "Debit", "debit")
+                ("Cash", "cash", "Debit", "debit"),
             )
             await db.commit()

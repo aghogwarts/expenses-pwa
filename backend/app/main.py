@@ -9,10 +9,12 @@ load_dotenv()
 from app.database import init_db
 from app.routers import auth, transactions, wallets, dashboard, export
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await init_db()
     yield
+
 
 app = FastAPI(lifespan=lifespan)
 
@@ -29,6 +31,7 @@ app.include_router(transactions.router)
 app.include_router(wallets.router)
 app.include_router(dashboard.router)
 app.include_router(export.router)
+
 
 @app.get("/api/health")
 async def health():

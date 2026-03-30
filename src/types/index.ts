@@ -1,13 +1,13 @@
-export type PaymentMethod = 'cash' | 'debit' | 'credit';
+export type PaymentMethod = "cash" | "debit" | "credit";
 
 export type Category =
-  | 'food'
-  | 'transport'
-  | 'health'
-  | 'education'
-  | 'bills'
-  | 'home'
-  | 'misc';
+  | "food"
+  | "transport"
+  | "health"
+  | "education"
+  | "bills"
+  | "home"
+  | "misc";
 
 export interface Wallet {
   id: number;
@@ -56,7 +56,12 @@ export interface DashboardData {
   total_spent: number;
   daily_average: number;
   by_category: { category: Category; total: number }[];
-  wallet_balances: { wallet_id: number; name: string; type: PaymentMethod; balance: number }[];
+  wallet_balances: {
+    wallet_id: number;
+    name: string;
+    type: PaymentMethod;
+    balance: number;
+  }[];
   recent_transactions: Transaction[];
 }
 
@@ -66,21 +71,21 @@ export interface AuthResponse {
 }
 
 export const CATEGORY_LABELS: Record<Category, string> = {
-  food: 'Food & Dining',
-  transport: 'Transport & Fuel',
-  health: 'Health',
-  education: 'Education',
-  bills: 'Bills & Utilities',
-  home: 'Home',
-  misc: 'Miscellaneous',
+  food: "Food & Dining",
+  transport: "Transport & Fuel",
+  health: "Health",
+  education: "Education",
+  bills: "Bills & Utilities",
+  home: "Home",
+  misc: "Miscellaneous",
 };
 
 export const CATEGORY_COLORS: Record<Category, string> = {
-  food: '#4caf50',
-  transport: '#66bb6a',
-  health: '#81c784',
-  education: '#a5d6a7',
-  bills: '#2e7d32',
-  home: '#388e3c',
-  misc: '#1b5e20',
+  food: "#4caf50",
+  transport: "#66bb6a",
+  health: "#81c784",
+  education: "#a5d6a7",
+  bills: "#2e7d32",
+  home: "#388e3c",
+  misc: "#1b5e20",
 };

@@ -13,12 +13,15 @@ APP_PASSWORD = os.getenv("APP_PASSWORD", "changeme")
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 bearer = HTTPBearer()
 
+
 def verify_password(plain: str) -> bool:
     return plain == APP_PASSWORD
+
 
 def create_token() -> str:
     expire = datetime.utcnow() + timedelta(days=TOKEN_EXPIRE_DAYS)
     return jwt.encode({"exp": expire, "sub": "user"}, SECRET_KEY, algorithm=ALGORITHM)
+
 
 def verify_token(credentials: HTTPAuthorizationCredentials = Depends(bearer)):
     try:

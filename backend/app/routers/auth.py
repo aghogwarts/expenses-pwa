@@ -4,6 +4,7 @@ from app.auth import verify_password, create_token
 
 router = APIRouter()
 
+
 @router.post("/api/auth/login")
 async def login(body: LoginRequest):
     if not verify_password(body.password):

@@ -7,11 +7,10 @@ from app.auth import verify_token
 
 router = APIRouter(dependencies=[Depends(verify_token)])
 
+
 @router.get("/api/export/csv")
 async def export_csv(
-    from_date: Optional[str] = None,
-    to_date: Optional[str] = None,
-    db=Depends(get_db)
+    from_date: Optional[str] = None, to_date: Optional[str] = None, db=Depends(get_db)
 ):
     query = """
         SELECT t.date, t.description, t.category, t.payment_method,
@@ -34,14 +33,24 @@ async def export_csv(
 
     output = io.StringIO()
     writer = csv.writer(output)
-    writer.writerow(["date", "description", "category", "payment_method", "amount", "wallet"])
+    writer.writerow(
+        ["date", "description", "category", "payment_method", "amount", "wallet"]
+    )
     for row in rows:
-        writer.writerow([row["date"], row["description"], row["category"],
-                         row["payment_method"], row["amount"], row["wallet"]])
+        writer.writerow(
+            [
+                row["date"],
+                row["description"],
+                row["category"],
+                row["payment_method"],
+                row["amount"],
+                row["wallet"],
+            ]
+        )
 
     output.seek(0)
     return StreamingResponse(
         iter([output.getvalue()]),
         media_type="text/csv",
-        headers={"Content-Disposition": "attachment; filename=paisa-export.csv"}
+        headers={"Content-Disposition": "attachment; filename=paisa-export.csv"},
     )
